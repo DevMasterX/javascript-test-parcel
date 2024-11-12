@@ -1,7 +1,10 @@
+import * as basicLightbox from 'basiclightbox';
+import 'basiclightbox/dist/basicLightbox.min.css';
+
 const instruments = [
   {
     id: 1,
-    img: 'https://static.dnipro-m.ua/cache/products/4878/catalog_origin_269592.jpg',
+    img: 'https://shop.avto-dreamcar.ru/upload/iblock/2b3/e4jh4p4c00mobxc056pksno4ye62hwk9.jpg',
     name: 'Шуруповерт',
     price: 150,
     description:
@@ -9,7 +12,7 @@ const instruments = [
   },
   {
     id: 2,
-    img: 'https://static.dnipro-m.ua/cache/products/5098/catalog_origin_195568.jpg',
+    img: 'https://alteco.kz/uploads/2/images/Lwthgh4s.jpg',
     name: 'Перфоратор',
     price: 3948,
     description:
@@ -17,7 +20,7 @@ const instruments = [
   },
   {
     id: 3,
-    img: 'https://static.dnipro-m.ua/cache/products/1248/catalog_origin_257336.jpg',
+    img: 'https://www.motoblok.biz/uploads/c9/0a/2c80eec2b014233a4677349a74460ac9.jpg',
     name: 'Шліфмашина',
     price: 1299,
     description:
@@ -33,7 +36,7 @@ const instruments = [
   },
   {
     id: 5,
-    img: 'https://static.dnipro-m.ua/cache/products/2300/catalog_origin_261037.jpg',
+    img: 'https://boltzavod.ru/wp-content/uploads/2019/02/02-kak-pravilno-polzovatsya-urovnem.jpg',
     name: 'Рівень',
     price: 897,
     description:
@@ -41,7 +44,7 @@ const instruments = [
   },
   {
     id: 6,
-    img: 'https://static.dnipro-m.ua/cache/products/6566/catalog_origin_270253.jpg',
+    img: 'https://baucenter.ru/upload/medialibrary/!_Sovety/trimmer/preview-trimmer.webp',
     name: 'Тример',
     price: 3699,
     description:
@@ -49,7 +52,7 @@ const instruments = [
   },
   {
     id: 7,
-    img: 'https://static.dnipro-m.ua/cache/products/6483/catalog_origin_270227.jpg',
+    img: 'https://budprocat.com/assets/images/products/116/%D0%9F%D1%80%D0%BE%D0%BA%D0%B0%D1%82%20%D0%BC%D0%BE%D1%82%D0%BE%D0%BA%D0%BE%D1%81%D1%8B%20STIHL%20FS%2055.png',
     name: 'Мотокоса',
     price: 11049,
     description:
@@ -57,7 +60,7 @@ const instruments = [
   },
   {
     id: 8,
-    img: 'https://static.dnipro-m.ua/cache/products/2741/catalog_origin_271775.jpg',
+    img: 'https://www.firman.biz/images/2016/10/11/IyXU1Yh6zJXWpBxm7wuAvbeGudNCzq.jpg',
     name: 'Генератор',
     price: 10890,
     description:
@@ -81,10 +84,10 @@ function createMarkup(arr) {
   const markup = arr
     .map(
       ({ id, img, name }) => `
-  <li data-id="${id}">
+  <li data-id="${id}" class='js-card'>
       <img src="${img}" alt="${name}" width='300' />
       <h2>${name}</h2>
-      <p class='js-info'><a href='#'>More information</a></p>
+      <p ><a class='js-info' href='#'>More information</a></p>
       <div>
         <button>Add to favorite</button>
         <button>Add to basket</button>
@@ -99,6 +102,30 @@ function createMarkup(arr) {
 
 list.addEventListener('click', onClick);
 
-function onClick(e) {}
+function onClick(e) {
+  e.preventDefault();
+  if (e.target.classList.contains('js-info')) {
+    const { id } = e.target.closest('.js-card').dataset;
+    const product = findProduct(Number(id));
+    const instance = basicLightbox.create(`
+	   <div class='modal'>
+        <img src="${product.img}" alt="${product.name}" width='300'/>
+        <h2>${product.name}</h2>
+        <h3>${product.price}</h3>
+        <p>${product.description}</p>
+        <div>
+          <button>Add to favorite</button>
+          <button>Add to basket</button>
+        </div>
+      </div>
+    </header>
+`);
+    instance.show();
+  }
+}
 
 createMarkup(instruments);
+
+function findProduct(productID) {
+  return instruments.find(({ id }) => id === productID);
+}
