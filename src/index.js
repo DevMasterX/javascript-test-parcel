@@ -1,3 +1,4 @@
+import './css/common.css';
 // const logMessage = () => {
 //   console.log('Лог при вызове колбэк функции через 3 секунды');
 // };
