@@ -3,7 +3,17 @@ const promise = new Promise((resolve, reject) => {
 
   setTimeout(() => {
     if (canFulfill) {
-      resolve('Промис выполнился успешно, с результатом');
+      resolve('Промис выполнился успешно, с результатом исполнен');
     }
+    reject('Промис выполнился с ошибкой');
   }, 2000);
 });
+
+promise.then(
+  result => {
+    console.log(result);
+  },
+  error => {
+    console.log(error);
+  }
+);
