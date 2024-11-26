@@ -1,19 +1,37 @@
-const promise = new Promise((resolve, reject) => {
-  const canFulfill = Math.random() > 0.5;
+// const promise = new Promise((resolve, reject) => {
+//   const canFulfill = Math.random() > 0.5;
 
-  setTimeout(() => {
-    if (canFulfill) {
-      resolve('Промис выполнился успешно, с результатом исполнен');
+//   setTimeout(() => {
+//     if (canFulfill) {
+//       resolve('Промис выполнился успешно, с результатом исполнен');
+//     }
+//     reject('Промис выполнился с ошибкой');
+//   }, 1000);
+// });
+
+// // promise.then(onFulfilled, onRejected);
+
+// function onFulfilled(result) {
+//   console.log(result);
+// }
+
+// function onRejected(error) {
+//   console.log(error);
+// }
+
+// promise.then(result => {
+//   console.log(result);
+// });
+
+function makePromise() {
+  return new Promise((resolve, reject) => {
+    const passed = Math.random() > 0.5;
+    if (passed) {
+      resolve('✅ this is resolve');
     }
-    reject('Промис выполнился с ошибкой');
-  }, 2000);
-});
-
-promise.then(
-  result => {
-    console.log(result);
-  },
-  error => {
-    console.log(error);
-  }
-);
+    reject('❌ this is reject');
+  });
+}
+makePromise()
+  .then(result => console.log(result))
+  .catch(error => console.log(error));
