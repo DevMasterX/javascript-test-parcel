@@ -26,10 +26,13 @@
 function makePromise() {
   return new Promise((resolve, reject) => {
     const passed = Math.random() > 0.5;
-    if (passed) {
-      resolve('✅ this is resolve');
-    }
-    reject('❌ this is reject');
+
+    setTimeout(() => {
+      if (passed) {
+        resolve('✅ this is resolve');
+      }
+      reject('❌ this is reject');
+    }, 2000);
   });
 }
 makePromise()
