@@ -23,18 +23,18 @@
 //   console.log(result);
 // });
 
-function makePromise() {
-  return new Promise((resolve, reject) => {
-    const passed = Math.random() > 0.5;
+// function makePromise() {
+//   return new Promise((resolve, reject) => {
+//     const passed = Math.random() > 0.5;
 
-    setTimeout(() => {
-      if (passed) {
-        resolve('✅ this is resolve');
-      }
-      reject('❌ this is reject');
-    }, 2000);
-  });
-}
-makePromise()
-  .then(result => console.log(result))
-  .catch(error => console.log(error));
+//     setTimeout(() => {
+//       if (passed) {
+//         resolve('✅ this is resolve');
+//       }
+//       reject('❌ this is reject');
+//     }, 2000);
+//   });
+// }
+// makePromise()
+//   .then(result => console.log(result))
+//   .catch(error => console.log(error));
