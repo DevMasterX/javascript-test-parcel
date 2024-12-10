@@ -38,3 +38,20 @@
 // makePromise()
 //   .then(result => console.log(result))
 //   .catch(error => console.log(error));
+const promise = new Promise((resolve, reject) => {
+  const canFulfill = Math.random() > 0.5;
+
+  setTimeout(() => {
+    if (canFulfill) {
+      resolve('Промис выполнился успешно с результатом (исполнен,  fulfilled)');
+    }
+
+    reject('Промис выполнился с ошибкой (отклонен, rejected)');
+  }, 2000);
+});
+
+promise.then(result => {
+  console.log(result);
+});
+
+console.log(promise);
