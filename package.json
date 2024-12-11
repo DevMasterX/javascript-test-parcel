@@ -20,6 +20,7 @@
   "dependencies": {
     "basiclightbox": "^5.0.4",
     "bootstrap.native": "^5.0.13",
+    "handlebars": "^4.7.8",
     "modern-normalize": "^1.1.0"
   },
   "devDependencies": {

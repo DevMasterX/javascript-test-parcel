@@ -9,6 +9,16 @@
   <body>
     <p><a href="index.html">На главную</a></p>
 
-    <script type="module" src="js/08-HTTP.js"></script>
+    <form class="form-inline search-form js-search-form">
+      <div class="form-group">
+        <input type="text" class="form-control" name="query" />
+      </div>
+
+      <button type="submit" class="btn btn-primary">Искать</button>
+    </form>
+
+    <div class="js-card-container"></div>
+
+    <script type="module" src="js/08-HTTP-fetch-api.js"></script>
   </body>
 </html>
