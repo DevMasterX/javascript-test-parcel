@@ -5,7 +5,7 @@
   "homepage": "https://DevMasterX.github.io/javascript-test-parcel",
   "scripts": {
     "start": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /javascript-test-parcel/"
+    "build": "parcel build src/index.html --public-url /javascript-test-parcel/"
   },
   "repository": {
     "type": "git",
