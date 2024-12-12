@@ -24,8 +24,6 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.13.2",
-    "handlebars": "^4.7.8",
-    "handlebars-loader": "^1.7.3",
     "parcel": "^2.13.2",
     "parcel-reporter-clean-dist": "^1.0.4",
     "posthtml-include": "^1.7.4"
