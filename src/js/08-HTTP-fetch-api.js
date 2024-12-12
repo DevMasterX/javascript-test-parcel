@@ -40,4 +40,3 @@ function hideLoader() {
   const loader = cardContainer.querySelector('.loader');
   if (loader) loader.remove();
 }
-console.log(2);
