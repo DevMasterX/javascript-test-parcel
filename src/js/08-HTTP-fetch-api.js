@@ -1,6 +1,7 @@
 import '../css/common.css';
 import createTemplate from './pokemonCardTemplate';
 import API from './api-service';
+console.log('🚀  API:', API);
 
 const cardContainer = document.querySelector('.js-card-container');
 const searchForm = document.querySelector('.js-search-form');
@@ -40,3 +41,8 @@ function hideLoader() {
   const loader = cardContainer.querySelector('.loader');
   if (loader) loader.remove();
 }
+
+// -----------------------------------
+fetch('https://pokeapi.co/api/v2/pokemon?limit=50')
+  .then(r => r.json())
+  .then(console.log);
