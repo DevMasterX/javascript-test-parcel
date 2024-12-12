@@ -1,19 +1,42 @@
 import '../css/common.css';
+import createTemplate from './pokemonCardTemplate';
+import API from './api-service';
 
-import Handlebars from 'handlebars';
-const template = Handlebars.compile('Name: {{name}}');
-console.log(template({ name: 'Nils' }));
+const cardContainer = document.querySelector('.js-card-container');
+const searchForm = document.querySelector('.js-search-form');
 
-import pokemonCardTpl from '../templates/pokemon-card.hbs';
+searchForm.addEventListener('submit', onSearch);
 
-fetch('https://pokeapi.co/api/v2/pokemon/2')
-  .then(response => {
-    return response.json();
-  })
-  .then(pokemon => {
-    console.log(pokemon);
-    const markup = pokemonCardTpl(pokemon);
-  })
-  .catch(error => {
-    console.log(error);
-  });
+function onSearch(e) {
+  e.preventDefault();
+  const form = e.currentTarget;
+  const pokemonId = form.elements.query.value;
+
+  showLoader();
+
+  API.fetchPokemon(pokemonId)
+    .then(renderPokemonCard)
+    .catch(onFetchError)
+    .finally(() => {
+      form.reset();
+      hideLoader();
+    });
+}
+
+function renderPokemonCard(pokemon) {
+  const markup = createTemplate(pokemon);
+  cardContainer.innerHTML = markup;
+}
+
+function onFetchError(error) {
+  alert(`😮😮Упс, что-то пошло не так!!!!!, Error: ${error}`);
+}
+
+function showLoader() {
+  cardContainer.innerHTML = '<div class="loader"></div>';
+}
+
+function hideLoader() {
+  const loader = cardContainer.querySelector('.loader');
+  if (loader) loader.remove();
+}
