@@ -1,7 +1,6 @@
 import '../css/common.css';
 import createTemplate from './pokemonCardTemplate';
 import API from './api-service';
-console.log('🚀  API:', API);
 
 const cardContainer = document.querySelector('.js-card-container');
 const searchForm = document.querySelector('.js-search-form');
@@ -43,6 +42,8 @@ function hideLoader() {
 }
 
 // -----------------------------------
-fetch('https://pokeapi.co/api/v2/pokemon?limit=50')
+fetch(
+  'https://pixabay.com/api/?key=39861298-38e1e10cd9c08fce6ef5c3957&q=yellow+flowers&image_type=photo'
+)
   .then(r => r.json())
   .then(console.log);
