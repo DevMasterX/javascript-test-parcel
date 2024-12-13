@@ -9,6 +9,9 @@ body {
     Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
   line-height: 1.5;
   color: #2a2a2a;
+
+  background: linear-gradient(120deg, #89f7fe, #66a6ff);
+  background-attachment: fixed;
 }
 
 button,
@@ -129,7 +132,8 @@ img {
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  /* background-color: #fff; */
+  background: #fff;
   overflow: hidden;
   font-family: 'Arial', sans-serif;
   text-align: center;
