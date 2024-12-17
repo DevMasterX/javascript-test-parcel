@@ -240,9 +240,7 @@ body {
   transform-box: fill-box;
   animation-timing-function: linear;
   animation-play-state: paused;
-}
 
-#sun:hover {
   animation-play-state: running;
 }
 
@@ -251,12 +249,3 @@ body {
     transform: rotate(360deg);
   }
 }
-
-/* .weather-animation {
-  position: absolute;
-}
-
-.weather-form {
-  position: absolute;
-  z-index: 1;
-} */
