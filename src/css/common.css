@@ -215,3 +215,48 @@ button:active {
 }
 
 /* -----------weather---------- */
+body {
+  margin: 0;
+}
+#icon {
+  width: 100%;
+  height: 100vh;
+}
+
+#cloud {
+  transition-property: fill;
+  transition-duration: 1s;
+}
+
+#cloud:hover {
+  fill: gray;
+}
+
+#sun {
+  animation-name: spin;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+  animation-timing-function: linear;
+  animation-play-state: paused;
+}
+
+#sun:hover {
+  animation-play-state: running;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* .weather-animation {
+  position: absolute;
+}
+
+.weather-form {
+  position: absolute;
+  z-index: 1;
+} */
