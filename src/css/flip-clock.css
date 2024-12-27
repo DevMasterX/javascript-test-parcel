@@ -14,3 +14,21 @@
 .digit {
   transform: rotateY(30deg);
 }
+
+.container {
+  width: 200px;
+  height: 200px;
+  perspective: 800px; /* Перспектива для 3D */
+  transform-style: preserve-3d; /* Включаем сохранение 3D */
+}
+
+.child {
+  width: 100px;
+  height: 100px;
+  background: red;
+  transform: rotateY(45deg);
+  transform-style: preserve-3d; /* По умолчанию, 3D не сохраняется */
+}
+
+.child:hover {
+}
