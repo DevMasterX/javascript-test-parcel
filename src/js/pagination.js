@@ -1,7 +1,6 @@
 import '../css/pagination.css';
 import NewsApiService from './components/news-service';
-import createArticlesMarkup from './helpers/createArticlesMarkup';
-console.log('🚀  createArticlesMarkup:', createArticlesMarkup);
+import { createArticlesMarkup } from './helpers/createArticlesMarkup';
 
 const refs = {
   searchForm: document.querySelector('.js-search-form'),
@@ -20,8 +19,10 @@ function onSearch(e) {
   newsApiService.query = e.currentTarget.elements.query.value;
   newsApiService.resetPage();
 
-  newsApiService.fetchArticles().then(articles => console.log(articles));
-  appendArticlesMarkup(articles);
+  newsApiService
+    .fetchArticles()
+    .then(articles => appendArticlesMarkup(articles));
+  // appendArticlesMarkup(articles);
 }
 
 function onLoadMore() {

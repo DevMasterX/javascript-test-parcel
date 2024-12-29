@@ -16,3 +16,5 @@ function createArticlesMarkup(articles) {
     )
     .join('');
 }
+
+export { createArticlesMarkup };
