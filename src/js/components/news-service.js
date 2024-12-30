@@ -30,7 +30,7 @@ export default class NewsApiService {
   }
 
   get query() {
-    return this.query;
+    return this.searchQuery;
   }
   set query(newQuery) {
     this.searchQuery = newQuery;

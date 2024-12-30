@@ -1,4 +1,8 @@
 function createArticlesMarkup(articles) {
+  if (!articles) {
+    return alert('No articles found!!!');
+  }
+
   return articles
     .map(
       ({ url, urlToImage, title, author, description }) => `
