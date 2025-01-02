@@ -131,7 +131,7 @@ function onLoad(entries, observer) {
         .then(data => {
           list.insertAdjacentHTML('beforeend', createMarkup(data.results));
           if (data.page === data.total_pages) {
-            ubserver.unobserve(target);
+            observer.unobserve(target);
           }
         })
         .catch(err => console.log(err));
