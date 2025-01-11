@@ -143,7 +143,7 @@ function createMarkup(arr) {
   return arr
     .map(
       ({ poster_path, title }) => `
-   <li>
+      <li>
         <img src="https://image.tmdb.org/t/p/w400${poster_path}" alt="${title}" />
         <h2>${title}</h2>
       </li>
