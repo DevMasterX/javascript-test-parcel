@@ -3,11 +3,11 @@ const BASE_URL = 'http://localhost:3000';
 // --------------GET---------------------------------
 
 function fetchBooks() {
-  fetch(`${BASE_URL}/books`).then(res => res.json());
+  return fetch(`${BASE_URL}/books`).then(res => res.json());
 }
 
 function fetchBookById(bookId) {
-  fetch(`${BASE_URL}/books/${bookId}`).then(res => res.json());
+  return fetch(`${BASE_URL}/books/${bookId}`).then(res => res.json());
 }
 
 // ---------------------POST----------------------
@@ -28,20 +28,44 @@ function addBook(book) {
     body: JSON.stringify(book),
   };
 
-  fetch(`${BASE_URL}/books/13`, options).then(res => res.json());
+  return fetch(`${BASE_URL}/books/13`, options).then(res => res.json());
 }
 
 // ---------------------PUT/PATCH----------------------
 
-fetch(`${BASE_URL}/books/1`, options).then(res => res.json());
-function updateBookById(aupdate, bookId) {
+function updateBookById(update, bookId) {
   const options = {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      title: 'Большая Тестовая книга JS',
-    }),
+    body: JSON.stringify(update),
   };
+
+  return fetch(`${BASE_URL}/books/${bookId}`, options).then(res => res.json());
 }
+updateBookById(
+  {
+    title: 'Большая Тестовая книга JS',
+  },
+  1
+);
+updateBookById(
+  {
+    title: 'книга CSS',
+  },
+  2
+);
+
+// ---------------------DELETE---------------------
+
+function removeBook(bookId) {
+  const url = `${BASE_URL}/books/${bookId}`;
+  const options = {
+    method: 'DELETE',
+  };
+
+  return fetch(url, options).then(res => res.json());
+}
+removeBook(1);
+removeBook(2);
