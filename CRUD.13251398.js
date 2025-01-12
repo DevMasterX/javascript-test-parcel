@@ -1,0 +1,2 @@
+!function(){var t="http://localhost:3000";function n(n,o){var c={method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify(n)};return fetch("".concat(t,"/books/").concat(o),c).then(function(t){return t.json()})}function o(n){return fetch("".concat(t,"/books/").concat(n),{method:"DELETE"}).then(function(t){return t.json()})}n({title:"Большая Тестовая книга JS"},1),n({title:"книга CSS"},2),o(1),o(2)}();
+//# sourceMappingURL=CRUD.13251398.js.map
