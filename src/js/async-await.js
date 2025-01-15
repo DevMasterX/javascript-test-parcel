@@ -148,11 +148,11 @@ const searchForm = document.querySelector('.js-search');
 const addCountry = document.querySelector('.js-add');
 const list = document.querySelector('.js-list');
 const formContainer = document.querySelector('.js-form-container');
+const markup = '<input type="text" name="country"/>';
 
 addCountry.addEventListener('click', handlerAddInput);
 
 function handlerAddInput() {
-  const markup = '<input type="text" name="country"/>';
   formContainer.insertAdjacentHTML('beforeend', markup);
 }
 
@@ -169,9 +169,13 @@ function handlerForm(evt) {
     .then(async resp => {
       const capitals = resp.map(({ capital }) => capital[0]);
       const weatherService = await getWeather(capitals);
-      console.log('🚀  weatherService:', weatherService);
+      list.innerHTML = createMarkup(weatherService);
     })
-    .catch(e => console.log(e));
+    .catch(e => console.log(e))
+    .finally(() => {
+      formContainer.innerHTML = markup;
+      searchForm.reset();
+    });
 }
 
 async function getCountries(arr) {
@@ -215,9 +219,32 @@ async function getWeather(arr) {
 
   const objs = data
     .filter(({ status }) => status === 'fulfilled')
-    .map(({ value }) => value.current);
+    .map(({ value }) => value);
 
   console.log(objs);
 
   return objs;
+}
+
+function createMarkup(arr) {
+  return arr
+    .map(
+      ({
+        current: {
+          temp_c,
+          condition: { text, icon },
+        },
+        location: { country, name },
+      }) => `  <li>
+        <div>
+          <h2>${country}</h2>
+          <h3>${name}</h3>
+          <img src="${icon}" alt="${text}" />
+          <p>${text}</p>
+          <p>${temp_c}</p>
+        </div>
+      </li>`
+    )
+    .join('');
+  // body
 }
