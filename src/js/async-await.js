@@ -116,12 +116,12 @@ async function addAndRenderBook() {
 
 async function getCapital1() {
   const URL = 'https://restcountries.com/v3.1/name/';
-  const arr = ['Ukrainerrrrrr', 'France', 'Germany'];
+  const arr = ['Ukraine', 'France', 'Germany'];
 
   const responses = arr.map(async country => {
     const response = await fetch(`${URL}${country}`);
 
-    if (!resp.ok) {
+    if (!response.ok) {
       throw new Error('Not found');
       // Promise.reject('Not found');
     }
@@ -134,9 +134,74 @@ async function getCapital1() {
 }
 getCapital1()
   .then(data => {
-    const res = data.filter(({ status }) => status === 'fulfilled');
+    const res = data
+      .filter(({ status }) => status === 'fulfilled')
+      .map(({ value }) => value[0]);
     const rej = data.filter(({ status }) => status === 'rejected');
-    console.log(res);
-    console.log(rej);
+    // console.log(res);
+    // console.log(rej);
   })
   .catch(error => console.log(error));
+
+// ---------------------------------------------
+
+const searchForm = document.querySelector('.js-search');
+const addCountry = document.querySelector('.js-add');
+const list = document.querySelector('.js-list');
+const formContainer = document.querySelector('.js-form-container');
+
+addCountry.addEventListener('click', handlerAddInput);
+
+function handlerAddInput(arguments) {
+  const markup = '<input type="text" name="country"/>';
+  formContainer.insertAdjacentHTML('beforeend', markup);
+}
+
+searchForm.addEventListener('submit', handlerForm);
+
+function handlerForm(evt) {
+  evt.preventDefault();
+
+  const data = new FormData(evt.currentTarget);
+  const arr = data
+    .getAll('country')
+    .filter(item => item)
+    .map(item => item.trim());
+  getCountries(arr);
+}
+
+async function getCountries(arr) {
+  const resps = arr.map(async item => {
+    const resp = await fetch(`https://restcountries.com/v3.1/name/${item}`);
+    if (!resp.ok) {
+      throw new Error();
+    }
+    return resp.json();
+  });
+  const data = await Promise.allSettled(resps);
+
+  const countryObj = data
+    .filter(({ status }) => status === 'fulfilled')
+    .map(({ value }) => value[0]);
+
+  return countryObj;
+}
+
+async function getWeather(arr) {
+  const BASE_URL = 'https://api.weatherapi.com/v1';
+  const API_KEY = '1f583b8645b54c449e5214937241512';
+  const params = new URLSearchParams({
+    key: API_KEY,
+    q: city,
+
+    lang: 'uk',
+  });
+
+  return fetch(`${BASE_URL}/current.json?${params}`).then(resp => {
+    if (!resp.ok) {
+      throw new Error(resp.statusText);
+    }
+
+    return resp.json();
+  });
+}
