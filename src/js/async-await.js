@@ -151,7 +151,7 @@ const formContainer = document.querySelector('.js-form-container');
 
 addCountry.addEventListener('click', handlerAddInput);
 
-function handlerAddInput(arguments) {
+function handlerAddInput() {
   const markup = '<input type="text" name="country"/>';
   formContainer.insertAdjacentHTML('beforeend', markup);
 }
