@@ -132,16 +132,15 @@ async function getCapital1() {
   const prom = await Promise.allSettled(responses);
   return prom;
 }
-getCapital1()
-  .then(data => {
-    const res = data
-      .filter(({ status }) => status === 'fulfilled')
-      .map(({ value }) => value[0]);
-    const rej = data.filter(({ status }) => status === 'rejected');
-    // console.log(res);
-    // console.log(rej);
-  })
-  .catch(error => console.log(error));
+// getCapital1()
+//   .then(data => {
+//     const res = data
+//       .filter(({ status }) => status === 'fulfilled')
+//       .map(({ value }) => value[0]);
+//     const rej = data.filter(({ status }) => status === 'rejected');
+
+//   })
+//   .catch(error => console.log(error));
 
 // ---------------------------------------------
 
@@ -161,13 +160,18 @@ searchForm.addEventListener('submit', handlerForm);
 
 function handlerForm(evt) {
   evt.preventDefault();
-
   const data = new FormData(evt.currentTarget);
   const arr = data
     .getAll('country')
     .filter(item => item)
     .map(item => item.trim());
-  getCountries(arr);
+  getCountries(arr)
+    .then(async resp => {
+      const capitals = resp.map(({ capital }) => capital[0]);
+      const weatherService = await getWeather(capitals);
+      console.log('🚀  weatherService:', weatherService);
+    })
+    .catch(e => console.log(e));
 }
 
 async function getCountries(arr) {
@@ -190,18 +194,30 @@ async function getCountries(arr) {
 async function getWeather(arr) {
   const BASE_URL = 'https://api.weatherapi.com/v1';
   const API_KEY = '1f583b8645b54c449e5214937241512';
-  const params = new URLSearchParams({
-    key: API_KEY,
-    q: city,
 
-    lang: 'uk',
-  });
+  const resps = arr.map(async city => {
+    const params = new URLSearchParams({
+      key: API_KEY,
+      q: city,
+      lang: 'uk',
+    });
 
-  return fetch(`${BASE_URL}/current.json?${params}`).then(resp => {
+    const resp = await fetch(`${BASE_URL}/current.json?${params}`);
+
     if (!resp.ok) {
       throw new Error(resp.statusText);
     }
 
     return resp.json();
   });
+
+  const data = await Promise.allSettled(resps);
+
+  const objs = data
+    .filter(({ status }) => status === 'fulfilled')
+    .map(({ value }) => value.current);
+
+  console.log(objs);
+
+  return objs;
 }
